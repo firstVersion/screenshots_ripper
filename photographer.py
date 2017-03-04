@@ -4,11 +4,11 @@ class Photographer:
     def __init__(self, base_url, base_name="pg", base_dir='./ss/'):
         self.base_url      = base_url
         self.base_name     = base_name
-        self.base_direcoty = base_dir
+        self.base_directory  = base_dir
 
-    def get_image(self, filename, width="372"):
-        url         = self.base_url,
-        name        = self.base_name+filename,
+    def get_image(self, filename, url="", width="372"):
+        url         = self.base_url+url
+        name        = self.base_name+filename+"_"+str(width)
         directory   = self.base_directory
         command = "webkit2png -F -s 1 -W %s -D %s -o %s %s" % (width, directory, name, url)
         result = os.system(command)
