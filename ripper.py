@@ -1,4 +1,4 @@
-import sys,cv2
+import sys,cv2,numpy as np
 
 class Ripper:
     def __init__(self, split_height, base_name, base_dir='./ss/'):
@@ -17,4 +17,8 @@ class Ripper:
             count += 1
         else:
             clp = img[start:height]
-            cv2.imwrite(self.base_dir+self.base_name+filename+"-"+str(count)+".jpg",clp)
+            blank_img_height = img_height - clp.shape[0]
+            blank_img = np.zeros((blank_img_height,width,3), np.uint8)
+            blank_img = blank_img+255
+            new_img = cv2.vconcat([clp, blank_img])
+            cv2.imwrite(self.base_dir+self.base_name+filename+"-"+str(count)+".jpg",new_img)
